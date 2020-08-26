@@ -55,8 +55,11 @@ plugins:
   - serverless-domain-manager
 
 custom:
+  domain:
+    dev: api.test.lmhd.me
+    prod: api.lmhd.me
   customDomain:
-    domainName: api.lmhd.me
+    domainName: ${self:custom.domain.${opt:stage, self:provider.stage}}
     autoDomain: true
     basePath: ""
     stage: ${self:provider.stage}

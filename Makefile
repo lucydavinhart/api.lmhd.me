@@ -1,7 +1,7 @@
 .PHONY: build clean deploy gomodgen
 
 .DEFAULT_GOAL := default
-default: deploy
+default: clean build deploy-dev
 
 build: gomodgen
 	@echo ========================================
@@ -17,11 +17,18 @@ clean:
 	@echo ========================================
 	rm -rf ./bin ./vendor Gopkg.lock
 
-deploy: clean build
+deploy: deploy-dev
+deploy-dev:
 	@echo ========================================
-	@echo Deploying
+	@echo Deploying to Dev
 	@echo ========================================
 	sls deploy --verbose
+
+deploy-prod:
+	@echo ========================================
+	@echo Deploying to Prod
+	@echo ========================================
+	sls deploy --verbose --stage=prod
 
 gomodgen:
 	@echo ========================================

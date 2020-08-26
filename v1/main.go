@@ -28,7 +28,7 @@ func NameHandler(ctx context.Context) (Response, error) {
 	} else {
 		handlerName = "name.ToHCL()"
 		outputString = name.ToHCL()
-		outputType = "application/hcl"
+		outputType = "text/plain; charset=UTF-8"
 	}
 	fmt.Printf("%v", outputString)
 
