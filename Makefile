@@ -8,7 +8,8 @@ build: gomodgen
 	@echo Building
 	@echo ========================================
 	export GO111MODULE=on
-	env GOOS=linux go build -ldflags="-s -w" -o bin/hello hello/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/hello_json hello/main.go
+	env GOOS=linux go build -ldflags="-s -w" -o bin/hello_hcl hello_hcl/main.go
 
 clean:
 	@echo ========================================

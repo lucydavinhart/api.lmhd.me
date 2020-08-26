@@ -12,9 +12,18 @@ package:
     - ./bin/**
 
 functions:
-  hello:
-    handler: bin/hello
+  hello_json:
+    handler: bin/hello_json
     events:
+      - http:
+          path: hello.json
+          method: get
+  hello_hcl:
+    handler: bin/hello_hcl
+    events:
+      - http:
+          path: hello.hcl
+          method: get
       - http:
           path: hello
           method: get
