@@ -31,6 +31,25 @@ functions:
       - http:
           path: hello
           method: get
+  v1_name_json:
+    handler: bin/v1
+    environment:
+      OUTPUT_FORMAT: json
+    events:
+      - http:
+          path: v1/name.json
+          method: get
+  v1_name_hcl:
+    handler: bin/v1
+    environment:
+      OUTPUT_FORMAT: hcl
+    events:
+      - http:
+          path: v1/name
+          method: get
+      - http:
+          path: v1/name.hcl
+          method: get
 
 plugins:
   - serverless-domain-manager
@@ -38,6 +57,7 @@ plugins:
 custom:
   customDomain:
     domainName: api.lmhd.me
+    autoDomain: true
     basePath: ""
     stage: ${self:provider.stage}
     createRoute53Record: true
