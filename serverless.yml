@@ -80,6 +80,7 @@ functions:
 
 plugins:
   - serverless-domain-manager
+  - serverless-dotenv-plugin
 
 custom:
   domain:

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/lucymhdavies/hello-serverless#readme",
   "devDependencies": {
-    "serverless-domain-manager": "^4.2.0"
+    "serverless-domain-manager": "^4.2.0",
+    "serverless-dotenv-plugin": "^3.0.0"
   }
 }
