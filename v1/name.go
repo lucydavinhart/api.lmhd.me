@@ -48,6 +48,7 @@ func GetName() Name {
 				"Liusaidh",
 				"Lucidora",
 				"Lucille",
+				"lUwUcy",
 			},
 		},
 		MiddleNames: []PCA{
