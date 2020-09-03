@@ -73,7 +73,12 @@ func GetFront() PKFront {
 		log.Fatal(err)
 	}
 
-	return front
+	// Assume only one fronter for now
+	if front.Members[0].Privacy == "public" {
+		return front
+	} else {
+		return PKFront{}
+	}
 }
 
 // ToJSON outputs PKFront in JSON format
