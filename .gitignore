@@ -23,3 +23,6 @@ vendor
 # Plugins
 node_modules/
 package-lock.json
+
+# Secrets env file
+.env
