@@ -43,8 +43,9 @@ func NameHandler(ctx context.Context) (Response, error) {
 		IsBase64Encoded: false,
 		Body:            outputString,
 		Headers: map[string]string{
-			"Content-Type":      outputType,
-			"X-LMHD-Func-Reply": handlerName,
+			"Access-Control-Allow-Origin": "*",
+			"Content-Type":                outputType,
+			"X-LMHD-Func-Reply":           handlerName,
 		},
 	}
 	return resp, nil
@@ -73,8 +74,9 @@ func FrontHandler(ctx context.Context) (Response, error) {
 		IsBase64Encoded: false,
 		Body:            outputString,
 		Headers: map[string]string{
-			"Content-Type":      outputType,
-			"X-LMHD-Func-Reply": handlerName,
+			"Access-Control-Allow-Origin": "*",
+			"Content-Type":                outputType,
+			"X-LMHD-Func-Reply":           handlerName,
 		},
 	}
 	return resp, nil

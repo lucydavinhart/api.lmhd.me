@@ -63,6 +63,7 @@ functions:
       - http:
           path: v1/front.json
           method: get
+          cors: true
   v1_front_hcl:
     handler: bin/v1
     environment:
