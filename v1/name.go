@@ -26,16 +26,14 @@ func GetName() Name {
 	return Name{
 		Initials: PCA{
 			Preferred:    "LMHD",
-			Canonical:    "LMHAD",
+			Canonical:    "LTTSD",
 			Alternatives: []string{},
 		},
 		FullName: PCA{
-			Preferred: "Lucy Mægan Heather Artemis Davinhart",
-			Canonical: "Lucy Mægan Heather Artemis Davinhart",
+			Preferred: "Lucy Top Tier Shitposting Davinhart",
+			Canonical: "Lucy Top Tier Shitposting Davinhart",
 			Alternatives: []string{
-				"Lucy Maegan Heather Artemis Davinhart",
-				"Lucy Mægan Heather Artemis Davies",
-				"Lucy Maegan Heather Artemis Davies",
+				"Lucy Top Tier Shitposting Davies",
 			},
 		},
 		FirstName: PCA{
@@ -52,18 +50,18 @@ func GetName() Name {
 		},
 		MiddleNames: []PCA{
 			PCA{
-				Preferred:    "Mægan",
-				Canonical:    "Mægan",
-				Alternatives: []string{"Maegan"},
-			},
-			PCA{
-				Preferred:    "Heather",
-				Canonical:    "Heather",
+				Preferred:    "Top",
+				Canonical:    "Top",
 				Alternatives: []string{},
 			},
 			PCA{
-				Preferred:    "Artemis",
-				Canonical:    "Artemis",
+				Preferred:    "Tier",
+				Canonical:    "Tier",
+				Alternatives: []string{},
+			},
+			PCA{
+				Preferred:    "Shitposting",
+				Canonical:    "Shitposting",
 				Alternatives: []string{},
 			},
 		},
