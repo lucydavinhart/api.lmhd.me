@@ -114,4 +114,4 @@ jobs:
 
       - run: exit 0
       - slack/status:
-          webhook: SLACK_WEBHOOK
+          webhook: ${SLACK_WEBHOOK}
