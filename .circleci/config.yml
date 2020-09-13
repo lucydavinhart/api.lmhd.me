@@ -59,7 +59,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:14
 
     working_directory: ~/repo
 
