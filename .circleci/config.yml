@@ -97,7 +97,9 @@ jobs:
 
       # Deploy Dev
       - run:
-          context: AWS_LMHD_ROOT
+          context:
+            - AWS_LMHD_ROOT
+            - PLURALKIT_STRAWB
           name: Deploy application
           command: make deploy-dev
 
@@ -105,7 +107,9 @@ jobs:
 
       # Deploy Prod
       - run:
-          context: AWS_LMHD_ROOT
+          context:
+            - AWS_LMHD_ROOT
+            - PLURALKIT_STRAWB
           name: Deploy application
           command: make deploy-prod
 
