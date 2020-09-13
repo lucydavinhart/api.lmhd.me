@@ -7,7 +7,7 @@ orbs:
 
 workflows:
   version: 2
-  btd:
+  build-then-deploy:
     jobs:
       - build
       - deploy:
@@ -37,6 +37,15 @@ jobs:
 
       # Lol, no tests yet
       - run: go test -v ./...
+
+      # Build
+      - run: make build
+
+      - run:
+          name: Check for binaries
+          command: |
+            ls -lah
+            ls -lah bin
 
       # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job. 
       - persist_to_workspace:
@@ -90,7 +99,7 @@ jobs:
       - run:
           context: AWS_LMHD_ROOT
           name: Deploy application
-          command: make build deploy-dev
+          command: make deploy-dev
 
       # TODO: make test-dev
 
