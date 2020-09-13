@@ -40,6 +40,9 @@ jobs:
       - run:
           name: Install Serverless CLI and dependencies
           command: |
+            sudo apt update
+            sudo apt install nodejs
+            curl -L https://npmjs.org/install.sh | sudo sh
             sudo npm i -g serverless
             npm install
 
