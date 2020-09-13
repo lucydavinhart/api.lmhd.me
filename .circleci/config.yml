@@ -11,6 +11,9 @@ workflows:
     jobs:
       - build
       - deploy:
+          context:
+            - AWS_LMHD_ROOT
+            - PLURALKIT_STRAWB
           requires:
             - build
 jobs:
@@ -97,20 +100,14 @@ jobs:
 
       # Deploy Dev
       - run:
-          context:
-            - AWS_LMHD_ROOT
-            - PLURALKIT_STRAWB
-          name: Deploy application
+          name: Deploy Dev
           command: make deploy-dev
 
       # TODO: make test-dev
 
       # Deploy Prod
       - run:
-          context:
-            - AWS_LMHD_ROOT
-            - PLURALKIT_STRAWB
-          name: Deploy application
+          name: Deploy Prod
           command: make deploy-prod
 
       # TODO: make test-prod
