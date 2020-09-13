@@ -27,7 +27,7 @@ func HandlerJSON(ctx context.Context) (Response, error) {
 	var buf bytes.Buffer
 
 	body, err := json.Marshal(map[string]interface{}{
-		"message": "Go Serverless v1.0! Your function executed successfully!",
+		"message": "Hello from a CircleCI Built THING!",
 	})
 	if err != nil {
 		return Response{StatusCode: 404}, err
@@ -51,7 +51,7 @@ func HandlerJSON(ctx context.Context) (Response, error) {
 func HandlerHCL(ctx context.Context) (Response, error) {
 
 	r := Res{
-		Message: "Go Serverless v1.0! Your function executed successfully!",
+		Message: "Hello from a CircleCI Built THING!",
 	}
 
 	hcl, err := hclencoder.Encode(r)
