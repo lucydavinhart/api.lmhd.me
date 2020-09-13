@@ -50,6 +50,7 @@ jobs:
 
       # Deploy Dev
       - run:
+          context: AWS_LMHD_ROOT
           name: Deploy application
           command: make build deploy-dev
 
@@ -57,6 +58,7 @@ jobs:
 
       # Deploy Prod
       - run:
+          context: AWS_LMHD_ROOT
           name: Deploy application
           command: make deploy-prod
 
