@@ -4,6 +4,15 @@
 version: 2.1
 orbs:
   slack: circleci/slack@3.4.2
+
+workflows:
+  version: 2
+  btd:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
 jobs:
   build:
     docker:
@@ -29,6 +38,35 @@ jobs:
       # Lol, no tests yet
       - run: go test -v ./...
 
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job. 
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
+          # taken to be the root directory of the workspace.
+          root: bin
+          # Must be relative path from root
+          paths:
+            - hello
+            - v1
+
+  deploy:
+    docker:
+      - image: circleci/node:8.10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: bin
+
+      - run:
+          name: Check for binaries
+          command: |
+            ls -lah
+            ls -lah bin
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -40,9 +78,6 @@ jobs:
       - run:
           name: Install Serverless CLI and dependencies
           command: |
-            sudo apt update
-            sudo apt install nodejs
-            curl -L https://npmjs.org/install.sh | sudo sh
             sudo npm i -g serverless
             npm install
 
