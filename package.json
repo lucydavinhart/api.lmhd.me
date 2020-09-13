@@ -1,5 +1,5 @@
 {
-  "name": "hello-serverless",
+  "name": "api.lmhd.me",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucymhdavies/hello-serverless.git"
+    "url": "git+https://github.com/lucydavinhart/api.lmhd.me.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lucymhdavies/hello-serverless/issues"
+    "url": "https://github.com/lucydavinhart/api.lmhd.me/issues"
   },
-  "homepage": "https://github.com/lucymhdavies/hello-serverless#readme",
+  "homepage": "https://github.com/lucydavinhart/api.lmhd.me#readme",
   "devDependencies": {
     "serverless-domain-manager": "^4.2.0",
     "serverless-dotenv-plugin": "^3.0.0"
