@@ -103,14 +103,20 @@ jobs:
           name: Deploy Dev
           command: make deploy-dev
 
-      # TODO: make test-dev
+      # Test Dev
+      - run:
+          name: Test Dev
+          command: make test-dev
 
       # Deploy Prod
       - run:
           name: Deploy Prod
           command: make deploy-prod
 
-      # TODO: make test-prod
+      # Test Prod
+      - run:
+          name: Test Prod
+          command: make test-dev
 
       - run: exit 0
       - slack/status:

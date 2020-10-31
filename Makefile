@@ -1,7 +1,9 @@
 .PHONY: build clean deploy gomodgen
 
 .DEFAULT_GOAL := default
-default: clean build deploy-dev
+default: clean build deploy-dev test-dev
+
+
 
 build: gomodgen
 	@echo ========================================
@@ -24,11 +26,23 @@ deploy-dev:
 	@echo ========================================
 	sls deploy --verbose
 
+test-dev:
+	@echo ========================================
+	@echo Running Dev Tests
+	@echo ========================================
+	@./test.sh
+
 deploy-prod:
 	@echo ========================================
 	@echo Deploying to Prod
 	@echo ========================================
 	sls deploy --verbose --stage=prod
+
+test-dev:
+	@echo ========================================
+	@echo Running Prod Tests
+	@echo ========================================
+	@echo Not Implemented
 
 gomodgen:
 	@echo ========================================
@@ -36,3 +50,11 @@ gomodgen:
 	@echo ========================================
 	chmod u+x gomod.sh
 	./gomod.sh
+
+
+# Install Dependencies
+# Assumes macOS
+deps:
+	brew install npm
+	npm i -g serverless@1.76.1
+	npm install
