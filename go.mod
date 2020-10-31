@@ -5,4 +5,4 @@ require (
 	github.com/rodaine/hclencoder v0.0.0-20200711024249-063a90d8fab0
 )
 
-go 1.13
+go 1.15
