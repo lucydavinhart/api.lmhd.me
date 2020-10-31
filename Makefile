@@ -38,7 +38,7 @@ deploy-prod:
 	@echo ========================================
 	sls deploy --verbose --stage=prod
 
-test-dev:
+test-prod:
 	@echo ========================================
 	@echo Running Prod Tests
 	@echo ========================================
@@ -53,8 +53,9 @@ gomodgen:
 
 
 # Install Dependencies
-# Assumes macOS
 deps:
-	brew install npm
+    ifeq ($(shell uname -s),Darwin)
+		brew install npm
+    endif
 	npm i -g serverless@1.76.1
 	npm install
