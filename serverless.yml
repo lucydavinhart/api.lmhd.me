@@ -12,25 +12,16 @@ package:
     - ./bin/**
 
 functions:
-  hello_json:
+  hello:
     handler: bin/hello
-    environment:
-      OUTPUT_FORMAT: json
     events:
       - http:
-          path: hello.json
+          path: /{path}
           method: get
-  hello_hcl:
-    handler: bin/hello
-    environment:
-      OUTPUT_FORMAT: hcl
-    events:
-      - http:
-          path: hello.hcl
-          method: get
-      - http:
-          path: hello
-          method: get
+          request:
+            parameters:
+              paths:
+                path: true
   v1_name_json:
     handler: bin/v1
     environment:

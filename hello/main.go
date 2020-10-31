@@ -2,10 +2,9 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"log"
-	"os"
+	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -23,11 +22,11 @@ type Res struct {
 }
 
 // HandlerJSON is our lambda handler invoked by the `lambda.Start` function call
-func HandlerJSON(ctx context.Context) (Response, error) {
+func HandlerJSON(req events.APIGatewayProxyRequest) (Response, error) {
 	var buf bytes.Buffer
 
 	body, err := json.Marshal(map[string]interface{}{
-		"message": "Hello from a CircleCI Built THING!",
+		"message": "Hello from the auto-detected JSON version",
 	})
 	if err != nil {
 		return Response{StatusCode: 404}, err
@@ -47,11 +46,15 @@ func HandlerJSON(ctx context.Context) (Response, error) {
 	return resp, nil
 }
 
-// HandlerHCL is our lambda handler invoked by the `lambda.Start` function call
-func HandlerHCL(ctx context.Context) (Response, error) {
+// Handler is our lambda handler invoked by the `lambda.Start` function call
+func Handler(req events.APIGatewayProxyRequest) (Response, error) {
+
+	if strings.HasSuffix(req.Path, ".json") {
+		return HandlerJSON(req)
+	}
 
 	r := Res{
-		Message: "Hello from a CircleCI Built THING!",
+		Message: "Hello from the HCL version",
 	}
 
 	hcl, err := hclencoder.Encode(r)
@@ -73,9 +76,5 @@ func HandlerHCL(ctx context.Context) (Response, error) {
 }
 
 func main() {
-	if os.Getenv("OUTPUT_FORMAT") == "json" {
-		lambda.Start(HandlerJSON)
-	} else {
-		lambda.Start(HandlerHCL)
-	}
+	lambda.Start(Handler)
 }
