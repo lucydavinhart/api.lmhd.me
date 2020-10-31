@@ -17,6 +17,7 @@ import (
 // https://serverless.com/framework/docs/providers/aws/events/apigateway/#lambda-proxy-integration
 type Response events.APIGatewayProxyResponse
 
+// Res is the response payload
 type Res struct {
 	Message string `hcl:"message"`
 }
