@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -31,7 +33,17 @@ func Handler(req events.APIGatewayProxyRequest) (Response, error) {
 		return FrontHandler(req, format)
 	}
 
-	return Response{}, fmt.Errorf("NO HANDLER")
+	resp := Response{
+		StatusCode:      404,
+		IsBase64Encoded: false,
+		Body:            "NO HANDLER",
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin": "*",
+			"X-LMHD-Func-Reply":           "Handler",
+			"X-LMHD-Req-String":           RequestToJSON(req),
+		},
+	}
+	return resp, fmt.Errorf("NO HANDLER")
 
 }
 
@@ -50,7 +62,6 @@ func NameHandler(req events.APIGatewayProxyRequest, format string) (Response, er
 		outputString = name.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
 	}
-	reqString := fmt.Sprintf("%v", req)
 	fmt.Printf("%v", outputString)
 
 	resp := Response{
@@ -61,7 +72,7 @@ func NameHandler(req events.APIGatewayProxyRequest, format string) (Response, er
 			"Access-Control-Allow-Origin": "*",
 			"Content-Type":                outputType,
 			"X-LMHD-Func-Reply":           handlerName,
-			"X-LMHD-Req-String":           reqString,
+			"X-LMHD-Req-String":           RequestToJSON(req),
 		},
 	}
 	return resp, nil
@@ -83,7 +94,6 @@ func FrontHandler(req events.APIGatewayProxyRequest, format string) (Response, e
 		outputString = front.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
 	}
-	reqString := fmt.Sprintf("%v", req)
 	fmt.Printf("%v", outputString)
 
 	resp := Response{
@@ -94,9 +104,19 @@ func FrontHandler(req events.APIGatewayProxyRequest, format string) (Response, e
 			"Access-Control-Allow-Origin": "*",
 			"Content-Type":                outputType,
 			"X-LMHD-Func-Reply":           handlerName,
-			"X-LMHD-Req-String":           reqString,
+			"X-LMHD-Req-String":           RequestToJSON(req),
 		},
 	}
 	return resp, nil
 
+}
+
+// RequestToJSON outputs an API Gateway Proxy Request in JSON format
+func RequestToJSON(req events.APIGatewayProxyRequest) string {
+	var buf bytes.Buffer
+
+	body, _ := json.Marshal(req)
+	json.HTMLEscape(&buf, body)
+
+	return buf.String()
 }
