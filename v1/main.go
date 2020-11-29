@@ -1,9 +1,8 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"os"
+	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -13,21 +12,36 @@ import (
 type Response events.APIGatewayProxyResponse
 
 func main() {
-	switch handler := os.Getenv("HANDLER"); handler {
-	case "name":
-		lambda.Start(NameHandler)
-	case "front":
-		lambda.Start(FrontHandler)
+	lambda.Start(Handler)
+}
+
+// Handler is our lambda handler invoked by the `lambda.Start` function call
+func Handler(req events.APIGatewayProxyRequest) (Response, error) {
+	format := "hcl"
+
+	if strings.HasSuffix(req.Path, ".json") {
+		format = "json"
 	}
+
+	switch {
+	case strings.HasPrefix(req.Path, "/v1/name"):
+		return NameHandler(req, format)
+
+	case strings.HasPrefix(req.Path, "/v1/front"):
+		return FrontHandler(req, format)
+	}
+
+	return Response{}, fmt.Errorf("NO HANDLER")
+
 }
 
 // NameHandler handles requests for /name etc.
-func NameHandler(ctx context.Context) (Response, error) {
+func NameHandler(req events.APIGatewayProxyRequest, format string) (Response, error) {
 	var outputString, outputType, handlerName string
 
 	name := GetName()
 
-	if os.Getenv("OUTPUT_FORMAT") == "json" {
+	if format == "json" {
 		handlerName = "name.ToJSON()"
 		outputString = name.ToJSON()
 		outputType = "application/json"
@@ -36,6 +50,7 @@ func NameHandler(ctx context.Context) (Response, error) {
 		outputString = name.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
 	}
+	reqString := fmt.Sprintf("%v", req)
 	fmt.Printf("%v", outputString)
 
 	resp := Response{
@@ -46,6 +61,7 @@ func NameHandler(ctx context.Context) (Response, error) {
 			"Access-Control-Allow-Origin": "*",
 			"Content-Type":                outputType,
 			"X-LMHD-Func-Reply":           handlerName,
+			"X-LMHD-Req-String":           reqString,
 		},
 	}
 	return resp, nil
@@ -53,12 +69,12 @@ func NameHandler(ctx context.Context) (Response, error) {
 }
 
 // FrontHandler handles requests for /front etc.
-func FrontHandler(ctx context.Context) (Response, error) {
+func FrontHandler(req events.APIGatewayProxyRequest, format string) (Response, error) {
 	var outputString, outputType, handlerName string
 
 	front := GetFront()
 
-	if os.Getenv("OUTPUT_FORMAT") == "json" {
+	if format == "json" {
 		handlerName = "front.ToJSON()"
 		outputString = front.ToJSON()
 		outputType = "application/json"
@@ -67,6 +83,7 @@ func FrontHandler(ctx context.Context) (Response, error) {
 		outputString = front.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
 	}
+	reqString := fmt.Sprintf("%v", req)
 	fmt.Printf("%v", outputString)
 
 	resp := Response{
@@ -77,6 +94,7 @@ func FrontHandler(ctx context.Context) (Response, error) {
 			"Access-Control-Allow-Origin": "*",
 			"Content-Type":                outputType,
 			"X-LMHD-Func-Reply":           handlerName,
+			"X-LMHD-Req-String":           reqString,
 		},
 	}
 	return resp, nil
