@@ -26,6 +26,7 @@ deploy-dev:
 	@echo ========================================
 	sls deploy --verbose
 
+test: test-dev
 test-dev:
 	@echo ========================================
 	@echo Running Dev Tests
@@ -42,7 +43,7 @@ test-prod:
 	@echo ========================================
 	@echo Running Prod Tests
 	@echo ========================================
-	@echo Not Implemented
+	@API_PATH=https://api.lmhd.me ./test.sh
 
 gomodgen:
 	@echo ========================================

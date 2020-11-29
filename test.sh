@@ -2,7 +2,10 @@
 
 set -ex
 
-API_PATH="https://api.test.lmhd.me"
+if [[ -z ${API_PATH} ]]; then
+	# Default to Test if unset
+	API_PATH="https://api.test.lmhd.me"
+fi
 
 curl -s ${API_PATH}/hello | grep "HCL version"
 curl -s ${API_PATH}/hello.hcl | grep "HCL version"
