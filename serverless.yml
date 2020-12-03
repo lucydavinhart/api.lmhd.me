@@ -24,6 +24,9 @@ functions:
                 path: true
   v1:
     handler: bin/v1
+    environment:
+      PLURALKIT_API_TOKEN: ${env:PLURALKIT_API_TOKEN}
+      PLURALKIT_SYSTEM_ID: ${env:PLURALKIT_SYSTEM_ID}
     events:
       - http:
           path: /v1/{path}
