@@ -2,6 +2,7 @@
 
 .DEFAULT_GOAL := default
 default: clean build deploy-dev test-dev
+prod: default deploy-prod test-prod
 
 
 
