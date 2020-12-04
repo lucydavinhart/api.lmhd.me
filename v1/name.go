@@ -25,54 +25,27 @@ type Name struct {
 func GetName() Name {
 	return Name{
 		Initials: PCA{
-			Preferred:    "LMHD",
-			Canonical:    "LMHAD",
+			Preferred:    "HONCCC",
+			Canonical:    "HONK",
 			Alternatives: []string{},
 		},
 		FullName: PCA{
-			Preferred: "Lucy Mægan Heather Artemis Davinhart",
-			Canonical: "Lucy Mægan Heather Artemis Davinhart",
-			Alternatives: []string{
-				"Lucy Maegan Heather Artemis Davinhart",
-				"Lucy Mægan Heather Artemis Davies",
-				"Lucy Maegan Heather Artemis Davies",
-			},
+			Preferred:    "Grian Coldwater",
+			Canonical:    "Ian Coldwater",
+			Alternatives: []string{},
 		},
 		FirstName: PCA{
-			Preferred: "Lucy",
-			Canonical: "Lucy",
-			Alternatives: []string{
-				"Lucidity",
-				"Lusitania",
-				"Liùsaidh",
-				"Liusaidh",
-				"Lucidora",
-				"Lucille",
-			},
+			Preferred:    "Grian",
+			Canonical:    "Ian",
+			Alternatives: []string{},
 		},
-		MiddleNames: []PCA{
-			PCA{
-				Preferred:    "Mægan",
-				Canonical:    "Mægan",
-				Alternatives: []string{"Maegan"},
-			},
-			PCA{
-				Preferred:    "Heather",
-				Canonical:    "Heather",
-				Alternatives: []string{},
-			},
-			PCA{
-				Preferred:    "Artemis",
-				Canonical:    "Artemis",
-				Alternatives: []string{},
-			},
-		},
+		MiddleNames: []PCA{},
 		FamilyName: PCA{
-			Preferred:    "Davinhart",
-			Canonical:    "Davinhart",
-			Alternatives: []string{"Davies"},
+			Preferred:    "Coldwater",
+			Canonical:    "Coldwater",
+			Alternatives: []string{},
 		},
-		Version: "1.2.0",
+		Version: "honcc",
 	}
 }
 
