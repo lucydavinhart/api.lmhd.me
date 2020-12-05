@@ -11,6 +11,9 @@ workflows:
     jobs:
       - build
       - deploy:
+          filters:
+            branches:
+              only: main
           context:
             - AWS_LMHD_ROOT
             - PLURALKIT_STRAWB
