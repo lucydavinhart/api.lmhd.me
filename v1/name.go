@@ -3,7 +3,9 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/rodaine/hclencoder"
 	"gopkg.in/yaml.v2"
 )
@@ -94,4 +96,41 @@ func (n Name) ToHCL() string {
 func (n Name) ToYAML() string {
 	yaml, _ := yaml.Marshal(n)
 	return string(yaml)
+}
+
+// NameHandler handles requests for /name etc.
+func NameHandler(req events.APIGatewayProxyRequest, format string) (Response, error) {
+	var outputString, outputType, handlerName string
+
+	name := GetName()
+
+	switch format {
+	case "json":
+		handlerName = "name.ToJSON()"
+		outputString = name.ToJSON()
+		outputType = "application/json"
+	case "yaml":
+		handlerName = "name.ToYAML()"
+		outputString = name.ToYAML()
+		outputType = "text/plain; charset=UTF-8"
+	default:
+		handlerName = "name.ToHCL()"
+		outputString = name.ToHCL()
+		outputType = "text/plain; charset=UTF-8"
+	}
+	fmt.Printf("%v", outputString)
+
+	resp := Response{
+		StatusCode:      200,
+		IsBase64Encoded: false,
+		Body:            outputString,
+		Headers: map[string]string{
+			"Access-Control-Allow-Origin": "*",
+			"Content-Type":                outputType,
+			"X-LMHD-Func-Reply":           handlerName,
+			"X-LMHD-Req-String":           RequestToJSON(req),
+		},
+	}
+	return resp, nil
+
 }
