@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/rodaine/hclencoder"
+	"gopkg.in/yaml.v2"
 )
 
 // PKFront corresponds to a response from the PK fronters API
@@ -95,4 +96,9 @@ func (f PKFront) ToJSON() string {
 func (f PKFront) ToHCL() string {
 	hcl, _ := hclencoder.Encode(f)
 	return string(hcl)
+}
+
+func (f PKFront) ToYAML() string {
+	yaml, _ := yaml.Marshal(f)
+	return string(yaml)
 }

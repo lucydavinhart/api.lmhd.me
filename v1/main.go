@@ -25,6 +25,10 @@ func Handler(req events.APIGatewayProxyRequest) (Response, error) {
 		format = "json"
 	}
 
+	if strings.HasSuffix(req.Path, ".yaml") {
+		format = "yaml"
+	}
+
 	switch {
 	case strings.HasPrefix(req.Path, "/v1/name"):
 		return NameHandler(req, format)
@@ -53,11 +57,16 @@ func NameHandler(req events.APIGatewayProxyRequest, format string) (Response, er
 
 	name := GetName()
 
-	if format == "json" {
+	switch format {
+	case "json":
 		handlerName = "name.ToJSON()"
 		outputString = name.ToJSON()
 		outputType = "application/json"
-	} else {
+	case "yaml":
+		handlerName = "name.ToYAML()"
+		outputString = name.ToYAML()
+		outputType = "text/plain; charset=UTF-8"
+	default:
 		handlerName = "name.ToHCL()"
 		outputString = name.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
@@ -84,16 +93,21 @@ func FrontHandler(req events.APIGatewayProxyRequest, format string) (Response, e
 	var outputString, outputType, handlerName string
 
 	front := GetFront()
-
-	if format == "json" {
+	switch format {
+	case "json":
 		handlerName = "front.ToJSON()"
 		outputString = front.ToJSON()
 		outputType = "application/json"
-	} else {
+	case "yaml":
+		handlerName = "front.ToYAML()"
+		outputString = front.ToYAML()
+		outputType = "text/plain; charset=UTF-8"
+	default:
 		handlerName = "front.ToHCL()"
 		outputString = front.ToHCL()
 		outputType = "text/plain; charset=UTF-8"
 	}
+
 	fmt.Printf("%v", outputString)
 
 	resp := Response{

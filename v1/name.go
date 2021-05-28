@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/rodaine/hclencoder"
+	"gopkg.in/yaml.v2"
 )
 
 type PCA struct {
@@ -88,4 +89,9 @@ func (n Name) ToJSON() string {
 func (n Name) ToHCL() string {
 	hcl, _ := hclencoder.Encode(n)
 	return string(hcl)
+}
+
+func (n Name) ToYAML() string {
+	yaml, _ := yaml.Marshal(n)
+	return string(yaml)
 }
