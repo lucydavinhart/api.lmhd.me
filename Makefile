@@ -56,8 +56,9 @@ gomodgen:
 
 # Install Dependencies
 deps:
-    ifeq ($(shell uname -s),Darwin)
-		brew install npm
-    endif
+ifeq ($(shell uname -s),Darwin)
+	brew install node@14
+	brew link --overwrite node@14
+endif
 	npm i -g serverless@1.76.1
 	npm install
