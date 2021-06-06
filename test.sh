@@ -48,4 +48,18 @@ curl --fail ${API_PATH}/v1/front
 
 
 
-# TODO: Test Auth
+# TODO: Disable in Circle?
+# Or give Circle the ability to generate Test certs?
+echo
+echo ========================================
+echo Testing Auth
+echo ========================================
+echo
+
+# Check we can access it
+if [[ "${API_PATH}" == "https://api.lmhd.me" ]]; then
+	./issue-cert.sh prod
+else
+	./issue-cert.sh
+fi
+curl --fail -H "X-LMHD-Client-Cert: $(base64 cert.pem)" ${API_PATH}/v1/auth
