@@ -11,8 +11,8 @@ build: gomodgen
 	@echo Building
 	@echo ========================================
 	export GO111MODULE=on
-	env GOOS=linux go build -ldflags="-s -w" -o bin/hello hello/main.go
-	env GOOS=linux go build -ldflags="-s -w" -o bin/v1 v1/*.go
+	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/hello hello/main.go
+	env GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bin/v1 v1/*.go
 
 clean:
 	@echo ========================================

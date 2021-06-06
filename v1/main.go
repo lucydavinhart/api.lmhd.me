@@ -38,6 +38,10 @@ func Handler(req events.APIGatewayProxyRequest) (Response, error) {
 
 	case strings.HasPrefix(req.Path, "/v1/quest"):
 		return QuestHandler(req, format)
+
+	case strings.HasPrefix(req.Path, "/v1/auth"):
+		return AuthHandler(req, format)
+
 	}
 
 	resp := Response{

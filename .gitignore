@@ -26,3 +26,8 @@ package-lock.json
 
 # Secrets env file
 .env
+
+
+# Client Certificate
+cert.json
+cert.pem

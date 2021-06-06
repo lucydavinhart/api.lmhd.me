@@ -45,3 +45,7 @@ echo
 
 # Check we can access it
 curl --fail ${API_PATH}/v1/front
+
+
+
+# TODO: Test Auth
