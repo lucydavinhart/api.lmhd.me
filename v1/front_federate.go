@@ -44,7 +44,7 @@ func FrontFederateHandler(req events.APIGatewayProxyRequest, format string) (Res
 	var fed Federate
 
 	// Need scopes to be able to write to this
-	_, err := Authorize(req, []string{"fronter.federate:write"})
+	_, err := Authorize(req, Scopes{"fronter.federate:write"})
 
 	if err != nil {
 		fed = Federate{
