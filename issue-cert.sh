@@ -6,7 +6,7 @@ if [[ "$1" == "prod" ]]; then
 fi
 
 # Issue client cert from Vault
-vault write --format=json pki/inter/issue/${pki_role} common_name=issue-cert.sh > cert.json
+vault write --format=json pki/api/issue/${pki_role} common_name=issue-cert.sh > cert.json
 cat cert.json | jq -r .data.certificate > cert.pem
 
 # Inspect cert

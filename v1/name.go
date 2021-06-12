@@ -54,17 +54,17 @@ func GetName() Name {
 			},
 		},
 		MiddleNames: []PCA{
-			PCA{
+			{
 				Preferred:    "Mægan",
 				Canonical:    "Mægan",
 				Alternatives: []string{"Maegan"},
 			},
-			PCA{
+			{
 				Preferred:    "Heather",
 				Canonical:    "Heather",
 				Alternatives: []string{},
 			},
-			PCA{
+			{
 				Preferred:    "Artemis",
 				Canonical:    "Artemis",
 				Alternatives: []string{},
