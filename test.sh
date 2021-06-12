@@ -62,4 +62,22 @@ if [[ "${API_PATH}" == "https://api.lmhd.me" ]]; then
 else
 	./issue-cert.sh
 fi
-curl --fail -H "X-LMHD-Client-Cert: $(base64 cert.pem)" ${API_PATH}/v1/auth
+#curl --fail -H "X-LMHD-Client-Cert: $(base64 cert.pem)" ${API_PATH}/v1/auth
+curl -H "X-LMHD-Client-Cert: $(base64 cert.pem)" ${API_PATH}/v1/auth
+
+
+echo
+echo ========================================
+echo Testing Federate
+echo ========================================
+echo
+
+# Check we can access it
+if [[ "${API_PATH}" == "https://api.lmhd.me" ]]; then
+	./issue-cert.sh prod
+else
+	./issue-cert.sh
+fi
+#curl --fail -H "X-LMHD-Client-Cert: $(base64 cert.pem)" -X POST ${API_PATH}/v1/front/federate
+curl -H "X-LMHD-Client-Cert: $(base64 cert.pem)" -X POST ${API_PATH}/v1/front/federate
+

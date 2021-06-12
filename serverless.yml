@@ -29,12 +29,12 @@ functions:
       PLURALKIT_SYSTEM_ID: ${env:PLURALKIT_SYSTEM_ID}
     events:
       - http:
-          path: /v1/{path}
-          method: get
+          path: /v1/{proxy+}
+          method: any
           request:
             parameters:
               paths:
-                path: true
+                proxy: true
 
 plugins:
   - serverless-domain-manager

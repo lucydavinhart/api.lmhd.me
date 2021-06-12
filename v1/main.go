@@ -29,19 +29,32 @@ func Handler(req events.APIGatewayProxyRequest) (Response, error) {
 		format = "yaml"
 	}
 
-	switch {
-	case strings.HasPrefix(req.Path, "/v1/name"):
-		return NameHandler(req, format)
+	switch req.HTTPMethod {
+	case "GET":
+		switch {
+		case strings.HasPrefix(req.Path, "/v1/name"):
+			return NameHandler(req, format)
 
-	case strings.HasPrefix(req.Path, "/v1/front"):
-		return FrontHandler(req, format)
+			// TODO: /v1/front/federate to check status
 
-	case strings.HasPrefix(req.Path, "/v1/quest"):
-		return QuestHandler(req, format)
+		case strings.HasPrefix(req.Path, "/v1/front"):
+			return FrontHandler(req, format)
 
-	case strings.HasPrefix(req.Path, "/v1/auth"):
-		return AuthHandler(req, format)
+		case strings.HasPrefix(req.Path, "/v1/quest"):
+			return QuestHandler(req, format)
 
+		case strings.HasPrefix(req.Path, "/v1/auth"):
+			return AuthHandler(req, format)
+		}
+
+	case "POST":
+		switch {
+		case strings.HasPrefix(req.Path, "/v1/front/federate"):
+			return FrontFederateHandler(req, format)
+
+		case strings.HasPrefix(req.Path, "/v1/auth"):
+			return AuthHandler(req, format)
+		}
 	}
 
 	resp := Response{

@@ -21,9 +21,9 @@ type Error struct {
 }
 
 type Auth struct {
-	Authed bool     `json:"authed"`
-	Error  *Error   `json:"error,omitempty"`
-	Scopes []string `json:"scopes,omitempty"`
+	Authed bool   `json:"authed"`
+	Error  *Error `json:"error,omitempty"`
+	Scopes Scopes `json:"scopes,omitempty"`
 }
 
 func (a Auth) ToJSON() string {
@@ -52,7 +52,8 @@ func AuthHandler(req events.APIGatewayProxyRequest, format string) (Response, er
 
 	var auth Auth
 
-	scopes, err := Authenticate(req)
+	// No required scopes for this API call; just a valid token
+	scopes, err := Authorize(req, Scopes{})
 
 	if err != nil {
 		auth = Auth{
@@ -107,9 +108,24 @@ func AuthHandler(req events.APIGatewayProxyRequest, format string) (Response, er
 	return resp, nil
 }
 
+// Authorize checks if an Authenticated client has the required API Scopes
+func Authorize(req events.APIGatewayProxyRequest, requiredScopes Scopes) (Scopes, error) {
+	clientScopes, err := Authenticate(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if !requiredScopes.IsAuthorized(clientScopes) {
+		return nil, fmt.Errorf("incorrect API scopes. Have: %v, Need: %v", clientScopes, requiredScopes)
+	}
+
+	return clientScopes, nil
+}
+
 // Authenticate checks for presence of specific request headers and performs Authentication
 // If authenticated, returns scopes
-func Authenticate(req events.APIGatewayProxyRequest) (scopes []string, err error) {
+func Authenticate(req events.APIGatewayProxyRequest) (scopes Scopes, err error) {
 	host, found := req.Headers["Host"]
 	if !found {
 		return scopes, fmt.Errorf("missing Host header")
@@ -131,7 +147,7 @@ func Authenticate(req events.APIGatewayProxyRequest) (scopes []string, err error
 // private certificate (yet), due to the API clients being iOS Shortcuts
 //
 // This is something which would be useful to change in future
-func ValidateClientCertificate(certRawBase64, host string) ([]string, error) {
+func ValidateClientCertificate(certRawBase64, host string) (Scopes, error) {
 	// Which CAs do we trust?
 	var trustedRootCAs = []string{
 		// TODO: Parameterise this with an env var
