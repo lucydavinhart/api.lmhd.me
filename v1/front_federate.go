@@ -35,8 +35,6 @@ func (f Federate) ToYAML() string {
 }
 
 // FrontFederateHandler handles requests for /front/federate etc.
-//
-// TODO: This does nothing yet. Hook it up to https://github.com/strawberryutopia/federate-fronter
 func FrontFederateHandler(req events.APIGatewayProxyRequest, format string) (Response, error) {
 	var outputString, outputType, handlerName string
 	statusCode := 200
@@ -56,9 +54,7 @@ func FrontFederateHandler(req events.APIGatewayProxyRequest, format string) (Res
 		}
 		statusCode = 401
 	} else {
-		// This particular API endpoint will just show the user their API Scopes
-		// Other API endpoints will need an Authorization(req, scope) function, which
-		// does Authentication and then checks certificate scopes
+		// TODO: This does nothing yet. Hook it up to https://github.com/strawberryutopia/federate-fronter
 		fed = Federate{
 			Updated: true,
 		}
