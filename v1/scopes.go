@@ -9,7 +9,7 @@ func (required Scopes) IsAuthorized(have Scopes) bool {
 
 	difference := required.subtract(have)
 
-	// i.e. if "have" contains every element of "needed"
+	// i.e. if "have" contains every element of "required"
 	// then required - have == []
 	return len(difference) == 0
 }
