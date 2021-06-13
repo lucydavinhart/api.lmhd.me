@@ -25,8 +25,15 @@ functions:
   v1:
     handler: bin/v1
     environment:
-      PLURALKIT_API_TOKEN: ${env:PLURALKIT_API_TOKEN}
-      PLURALKIT_SYSTEM_ID: ${env:PLURALKIT_SYSTEM_ID}
+      PLURALKIT_API_TOKEN:         ${env:PLURALKIT_API_TOKEN}
+      PLURALKIT_SYSTEM_ID:         ${env:PLURALKIT_SYSTEM_ID}
+      # TODO: Test/Prod specific env vars for Vault AppRole
+      VAULT_APPROLE_ROLE_ID:       ${env:VAULT_APPROLE_ROLE_ID}
+      VAULT_APPROLE_SECRET_ID:     ${env:VAULT_APPROLE_SECRET_ID}
+      VAULT_SECRET_SLACK_TOKENS:   ${env:VAULT_SECRET_SLACK_TOKENS}
+      VAULT_SECRET_SLACK_MEMBERS:  ${env:VAULT_SECRET_SLACK_MEMBERS}
+      VAULT_SECRET_SLACK_USER_IDS: ${env:VAULT_SECRET_SLACK_USER_IDS}
+      VAULT_ADDR:                  ${env:VAULT_ADDR}
     events:
       - http:
           path: /v1/{proxy+}

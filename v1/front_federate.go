@@ -7,11 +7,13 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/rodaine/hclencoder"
+	federate "github.com/strawberryutopia/federate-fronter"
 	"gopkg.in/yaml.v2"
 )
 
 type Federate struct {
 	Updated bool   `json:"updated"`
+	Fronter string `json:"fronter"`
 	Error   *Error `json:"error,omitempty"`
 }
 
@@ -44,6 +46,10 @@ func FrontFederateHandler(req events.APIGatewayProxyRequest, format string) (Res
 	// Need scopes to be able to write to this
 	_, err := Authorize(req, Scopes{"fronter.federate:write"})
 
+	// TODO: This is kind of a mess.
+	// Rather than having lots of nested IFs, do everythign in another function,
+	// and return the first error we get
+
 	if err != nil {
 		fed = Federate{
 			Updated: false,
@@ -54,9 +60,33 @@ func FrontFederateHandler(req events.APIGatewayProxyRequest, format string) (Res
 		}
 		statusCode = 401
 	} else {
-		// TODO: This does nothing yet. Hook it up to https://github.com/strawberryutopia/federate-fronter
-		fed = Federate{
-			Updated: true,
+		client, err := federate.NewClient()
+		if err != nil {
+			fed = Federate{
+				Updated: false,
+				Error: &Error{
+					Message: err.Error(),
+					Type:    "ClientError",
+				},
+			}
+			statusCode = 401
+		} else {
+			fronter, err := client.UpdateFromFront()
+			if err != nil {
+				fed = Federate{
+					Updated: false,
+					Error: &Error{
+						Message: err.Error(),
+						Type:    "FederateError",
+					},
+				}
+				statusCode = 401
+			} else {
+				fed = Federate{
+					Updated: true,
+					Fronter: fronter,
+				}
+			}
 		}
 	}
 
