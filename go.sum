@@ -112,8 +112,8 @@ github.com/sirupsen/logrus v1.8.1 h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE
 github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
 github.com/slack-go/slack v0.9.1 h1:pekQBs0RmrdAgoqzcMCzUCWSyIkhzUU3F83ExAdZrKo=
 github.com/slack-go/slack v0.9.1/go.mod h1:wWL//kk0ho+FcQXcBTmEafUI5dz4qz5f4mMk8oIkioQ=
-github.com/strawberryutopia/federate-fronter v0.2.0 h1:pOS+zI55wqxl1OOvzGq/Bvji/GDzxq97Gn2HHUdwTpo=
-github.com/strawberryutopia/federate-fronter v0.2.0/go.mod h1:ups4q/z4kVYfaEmFsnKjuGnl7nVKwSbzNbwRmOFmf24=
+github.com/strawberryutopia/federate-fronter v0.2.1 h1:mpRbQHtxcjVtHopyWfnSzcdWelAv8anRcYQou2b0mfo=
+github.com/strawberryutopia/federate-fronter v0.2.1/go.mod h1:ups4q/z4kVYfaEmFsnKjuGnl7nVKwSbzNbwRmOFmf24=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
