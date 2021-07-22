@@ -33,10 +33,10 @@ func GetName() Name {
 			Alternatives: []string{},
 		},
 		FullName: PCA{
-			Preferred: "Lucy Mægan Heather Artemis Davinhart",
-			Canonical: "Lucy Mægan Heather Artemis Davinhart",
+			Preferred: "Lucy Mægan Heather Artemis s/es/nhart",
+			Canonical: "Lucy Mægan Heather Artemis s/es/nhart",
 			Alternatives: []string{
-				"Lucy Maegan Heather Artemis Davinhart",
+				"Lucy Maegan Heather Artemis s/es/nhart",
 				"Lucy Mægan Heather Artemis Davies",
 				"Lucy Maegan Heather Artemis Davies",
 			},
@@ -71,8 +71,8 @@ func GetName() Name {
 			},
 		},
 		FamilyName: PCA{
-			Preferred:    "Davinhart",
-			Canonical:    "Davinhart",
+			Preferred:    "s/es/nhart",
+			Canonical:    "s/es/nhart",
 			Alternatives: []string{"Davies"},
 		},
 		Version: "1.2.0",
