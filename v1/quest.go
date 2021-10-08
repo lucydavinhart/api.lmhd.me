@@ -38,7 +38,7 @@ func QuestHandler(req events.APIGatewayProxyRequest, format string) (Response, e
 	var outputString, outputType, handlerName string
 
 	quest := Quest{
-		Quest: "Instigator of DevOps Shenanigans, Girl Adjacent Who Go, and Recreational Procrastinatrix",
+		Quest: "Instigator of DevOps Shenanigans, HashiCorporeal, and Recreational Procrastinatrix",
 	}
 
 	switch format {
