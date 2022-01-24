@@ -41,12 +41,13 @@ jobs:
             aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
             aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY ;
             auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
-      
-    - name: Test Env Vars
-      run: env | sort | base64
+ 
+# Only un-comment this if you're very confused as to why the AWS creds aren't working
+#    - name: Test Env Vars
+#      run: env | sort | base64
 
-    - name: Test AWS Credentials
-      run: aws sts get-caller-identity
+#    - name: Test AWS Credentials
+#      run: aws sts get-caller-identity
 
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
