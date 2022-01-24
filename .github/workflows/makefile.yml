@@ -42,8 +42,8 @@ jobs:
             aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY ;
             auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
 
-    - name: Test Secrets
-      run: echo ${AWS_ACCESS_KEY_ID} | head -c 10
+    - name: Test Env Vars
+      run: env | sort
 
     - name: Test AWS Credentials
       run: aws sts get-caller-identity
