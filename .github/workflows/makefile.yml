@@ -45,7 +45,7 @@ jobs:
       run: echo ${AWS_ACCESS_KEY_ID} | head -c 10
 
     - name: Test AWS Credentials
-      run: sts get-caller-identity
+      run: aws sts get-caller-identity
 
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
