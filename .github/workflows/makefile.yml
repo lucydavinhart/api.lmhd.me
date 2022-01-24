@@ -23,7 +23,7 @@ jobs:
       VAULT_SECRET_SLACK_TOKENS: ${{ secrets.VAULT_SECRET_SLACK_TOKENS }}
       VAULT_SECRET_SLACK_USER_IDS: ${{ secrets.VAULT_SECRET_SLACK_USER_IDS }}
       AWS_DEFAULT_REGION: us-east-1
-      SLS_DEBUG=true
+      SLS_DEBUG: true
 
     steps:
     - uses: actions/checkout@v2
