@@ -42,7 +42,7 @@ jobs:
             auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
 
     - name: Test Secrets
-      run: echo ${TOKEN_DISPLAY_NAME} | head -c 10
+      run: echo ${AWS_ACCESS_KEY_ID} | head -c 10
 
     - name: Test AWS Credentials
       run: sts get-caller-identity
