@@ -9,7 +9,7 @@ on:
 jobs:
   dev:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: Dev
 
     steps:
     - uses: actions/checkout@v2
