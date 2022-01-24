@@ -26,6 +26,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Test AWS Credentials
+      run: sudo apt-get install awscli
+
     - name: Import Secrets
       uses: hashicorp/vault-action@v2.4.0
       with:
@@ -38,9 +41,7 @@ jobs:
             aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY
 
     - name: Test AWS Credentials
-      run: |
-        sudo apt-get install awscli
-        aws sts get-caller-identity
+      run: aws sts get-caller-identity
 
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
