@@ -10,6 +10,15 @@ jobs:
   dev:
     runs-on: ubuntu-latest
     environment: Dev
+    env:
+      PLURALKIT_API_TOKEN: ${{ secrets.PLURALKIT_API_TOKEN }}
+      PLURALKIT_SYSTEM_ID: ${{ secrets.PLURALKIT_SYSTEM_ID }}
+      VAULT_ADDR: ${{ secrets.VAULT_ADDR }}
+      VAULT_APPROLE_ROLE_ID: ${{ secrets.VAULT_APPROLE_ROLE_ID }}
+      VAULT_APPROLE_SECRET_ID: ${{ secrets.VAULT_APPROLE_SECRET_ID }}
+      VAULT_SECRET_SLACK_MEMBERS: ${{ secrets.VAULT_SECRET_SLACK_MEMBERS }}
+      VAULT_SECRET_SLACK_TOKENS: ${{ secrets.VAULT_SECRET_SLACK_TOKENS }}
+      VAULT_SECRET_SLACK_USER_IDS: ${{ secrets.VAULT_SECRET_SLACK_USER_IDS }}
 
     steps:
     - uses: actions/checkout@v2
