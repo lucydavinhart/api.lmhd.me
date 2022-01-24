@@ -47,9 +47,6 @@ jobs:
       
     - name: Deps
       run: make deps
-    
-    - name: Build
-      run: make build
 
     - name: Import Secrets
       uses: hashicorp/vault-action@v2.4.0
@@ -62,6 +59,10 @@ jobs:
             aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
             aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY ;
             auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
+    
+    - name: Build
+      run: make build
+
       
       # TODO: get AWS creds (and other secrets) from Vault
     - name: Deploy to Dev
