@@ -30,18 +30,6 @@ jobs:
 
     - name: Install AWS CLI
       run: sudo apt-get install awscli
-
-    - name: Import Secrets
-      uses: hashicorp/vault-action@v2.4.0
-      with:
-        url: ${{ secrets.VAULT_ADDR }}
-        method: jwt
-        path: github_jwt
-        role: demo
-        secrets: |
-            aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
-            aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY ;
-            auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
  
 # Only un-comment this if you're very confused as to why the AWS creds aren't working
 #    - name: Test Env Vars
@@ -54,12 +42,26 @@ jobs:
       uses: actions/setup-go@v2.1.5
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.1
+      with:
+        node-version: '14.15.4' # https://github.com/serverless/serverless/issues/8794#issuecomment-920602821
       
     - name: Deps
       run: make deps
     
     - name: Build
       run: make build
+
+    - name: Import Secrets
+      uses: hashicorp/vault-action@v2.4.0
+      with:
+        url: ${{ secrets.VAULT_ADDR }}
+        method: jwt
+        path: github_jwt
+        role: demo
+        secrets: |
+            aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
+            aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY ;
+            auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME ;
       
       # TODO: get AWS creds (and other secrets) from Vault
     - name: Deploy to Dev
