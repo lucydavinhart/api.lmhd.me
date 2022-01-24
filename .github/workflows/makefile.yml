@@ -9,8 +9,8 @@ on:
 jobs:
   dev:
     permissions:
-      id-token: write
       contents: read
+      id-token: write
     runs-on: ubuntu-latest
     environment: Dev
     env:
@@ -31,13 +31,13 @@ jobs:
       with:
         url: ${{ secrets.VAULT_ADDR }}
         method: jwt
+        path: github_jwt
         role: dev-api
         secrets: |
-            aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
-            aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY
+            auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME
 
     - name: Test Envs
-      run: echo ${VAULT_ADDR}
+      run: echo ${TOKEN_DISPLAY_NAME}
     
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
