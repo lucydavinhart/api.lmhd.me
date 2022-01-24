@@ -34,7 +34,9 @@ jobs:
         path: github_jwt
         role: demo
         secrets: |
-            auth/token/lookup-self display_name | TOKEN_DISPLAY_NAME
+            aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
+            aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY
+            
 
     - name: Test Envs
       run: echo ${TOKEN_DISPLAY_NAME}
