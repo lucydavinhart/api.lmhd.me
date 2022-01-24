@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   dev:
     runs-on: ubuntu-latest
@@ -22,7 +26,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: Import Secrets
+      uses: hashicorp/vault-action@v2.3.1
+      with:
+        url: https://vault.lmhd.me
+        method: jwt
+        role: dev-api
+        secrets: |
+            aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
+            aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY
+
     - name: Test Envs
       run: echo ${VAULT_ADDR}
     
