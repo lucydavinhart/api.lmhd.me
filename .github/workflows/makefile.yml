@@ -36,11 +36,12 @@ jobs:
         secrets: |
             aws/lmhd/prod/creds/test access_key | AWS_ACCESS_KEY_ID ;
             aws/lmhd/prod/creds/test secret_key | AWS_SECRET_ACCESS_KEY
-            
 
-    - name: Test Envs
-      run: echo ${TOKEN_DISPLAY_NAME}
-    
+    - name: Test AWS Credentials
+      run: |
+        apt-get install awscli
+        aws sts get-caller-identity
+
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
     - name: Setup Node.js environment
