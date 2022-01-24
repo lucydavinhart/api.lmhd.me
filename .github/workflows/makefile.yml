@@ -39,7 +39,7 @@ jobs:
 
     - name: Test AWS Credentials
       run: |
-        apt-get install awscli
+        sudo apt-get install awscli
         aws sts get-caller-identity
 
     - name: Setup Go environment
