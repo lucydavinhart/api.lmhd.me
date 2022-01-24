@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: Test Envs
+      run: echo ${VAULT_ADDR}
+    
     - name: Setup Go environment
       uses: actions/setup-go@v2.1.5
     - name: Setup Node.js environment
