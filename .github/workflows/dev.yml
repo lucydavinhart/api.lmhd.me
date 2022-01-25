@@ -81,6 +81,11 @@ jobs:
             aws/lmhd/prod/creds/api-dev access_key | AWS_ACCESS_KEY_ID ;
             aws/lmhd/prod/creds/api-dev secret_key | AWS_SECRET_ACCESS_KEY ;
 
+      # Sleep for some time to ensure IAM creds are valid
+      # Because for some reason, they're not valid immediately
+    - name: Wait for IAM
+      run: sleep 60
+
     - name: Deploy to Dev
       run: make deploy-dev
 
