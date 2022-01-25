@@ -15,7 +15,25 @@ on:
         type: boolean
 
 jobs:
-  dev:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Go environment
+      uses: actions/setup-go@v2.1.5
+
+    - name: Build
+      run: make build
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: builds
+        path: bin/
+
+
+  deploy-dev:
+    needs: build
     permissions:
       contents: read
       id-token: write
@@ -35,11 +53,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/download-artifact@master
+      with:
+        name: builds
+        path: bin
 
-    - name: Install AWS CLI
-      run: sudo apt-get install awscli
-    - name: Setup Go environment
-      uses: actions/setup-go@v2.1.5
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.1
       with:
@@ -57,9 +75,6 @@ jobs:
         secrets: |
             aws/lmhd/prod/creds/api-dev access_key | AWS_ACCESS_KEY_ID ;
             aws/lmhd/prod/creds/api-dev secret_key | AWS_SECRET_ACCESS_KEY ;
-
-    - name: Build
-      run: make build
 
     - name: Deploy to Dev
       run: make deploy-dev
