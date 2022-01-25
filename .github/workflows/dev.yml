@@ -1,5 +1,10 @@
 name: Makefile CI
 
+inputs:
+  sls_debug:
+    description: 'Whether to run Serverless in Debug mode'
+    required: false
+
 on:
   push:
     branches: [ main ]
@@ -23,7 +28,7 @@ jobs:
       VAULT_SECRET_SLACK_TOKENS: ${{ secrets.VAULT_SECRET_SLACK_TOKENS }}
       VAULT_SECRET_SLACK_USER_IDS: ${{ secrets.VAULT_SECRET_SLACK_USER_IDS }}
       AWS_DEFAULT_REGION: us-east-1
-      SLS_DEBUG: true
+      SLS_DEBUG: ${{ inputs.sls_debug }}
 
     steps:
     - uses: actions/checkout@v2
