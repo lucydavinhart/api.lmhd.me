@@ -56,7 +56,12 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: builds
-        path: bin
+        path: bin/
+
+    - name: Check artifacts
+      run: |
+        ls -lah bin
+        sha256sum bin/*
 
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.5.1
