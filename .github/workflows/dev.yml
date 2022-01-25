@@ -9,9 +9,10 @@ on:
   workflow_dispatch:
     inputs:
       sls_debug:
-        description: 'Whether to run Serverless in Debug mode'
+        description: 'Run serverless in debug mode?'
         default: false
         required: false
+        type: boolean
 
 jobs:
   dev:
