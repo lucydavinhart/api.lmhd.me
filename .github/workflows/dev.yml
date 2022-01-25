@@ -3,6 +3,7 @@ name: Makefile CI
 inputs:
   sls_debug:
     description: 'Whether to run Serverless in Debug mode'
+    default: false
     required: false
 
 on:
