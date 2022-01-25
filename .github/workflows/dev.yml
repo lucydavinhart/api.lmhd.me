@@ -1,16 +1,17 @@
 name: Makefile CI
 
-inputs:
-  sls_debug:
-    description: 'Whether to run Serverless in Debug mode'
-    default: false
-    required: false
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      sls_debug:
+        description: 'Whether to run Serverless in Debug mode'
+        default: false
+        required: false
 
 jobs:
   dev:
