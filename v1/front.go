@@ -18,38 +18,40 @@ import (
 // PKFront corresponds to a response from the PK fronters API
 // https://pluralkit.me/api/#get-s-id-fronters
 type PKFront struct {
+	ID        string    `json:"id"`
 	Timestamp time.Time `json:"timestamp"`
 	Members   []struct {
 		ID          string      `json:"id"`
+		UUID        string      `json:"uuid"`
 		Name        string      `json:"name"`
+		DisplayName interface{} `json:"display_name"`
 		Color       string      `json:"color"`
-		DisplayName string      `json:"display_name"`
 		Birthday    interface{} `json:"birthday"`
 		Pronouns    string      `json:"pronouns"`
 		AvatarURL   string      `json:"avatar_url"`
+		Banner      interface{} `json:"banner"`
 		Description interface{} `json:"description"`
+		Created     time.Time   `json:"created"`
+		KeepProxy   bool        `json:"keep_proxy"`
 		ProxyTags   []struct {
 			Prefix string      `json:"prefix"`
 			Suffix interface{} `json:"suffix"`
 		} `json:"proxy_tags"`
-		KeepProxy          bool        `json:"keep_proxy"`
-		Privacy            interface{} `json:"privacy"`
-		Visibility         interface{} `json:"visibility"`
-		NamePrivacy        interface{} `json:"name_privacy"`
-		DescriptionPrivacy interface{} `json:"description_privacy"`
-		BirthdayPrivacy    interface{} `json:"birthday_privacy"`
-		PronounPrivacy     interface{} `json:"pronoun_privacy"`
-		AvatarPrivacy      interface{} `json:"avatar_privacy"`
-		MetadataPrivacy    interface{} `json:"metadata_privacy"`
-		Created            time.Time   `json:"created"`
-		Prefix             string      `json:"prefix"`
-		Suffix             interface{} `json:"suffix"`
+		Privacy struct {
+			Visibility         string `json:"visibility"`
+			NamePrivacy        string `json:"name_privacy"`
+			DescriptionPrivacy string `json:"description_privacy"`
+			BirthdayPrivacy    string `json:"birthday_privacy"`
+			PronounPrivacy     string `json:"pronoun_privacy"`
+			AvatarPrivacy      string `json:"avatar_privacy"`
+			MetadataPrivacy    string `json:"metadata_privacy"`
+		} `json:"privacy"`
 	} `json:"members"`
 }
 
 // GetFront requests the fronter from PluralKit
 func GetFront() PKFront {
-	url := "https://api.pluralkit.me/v1/s/" +
+	url := "https://api.pluralkit.me/v2/systems/" +
 		os.ExpandEnv("${PLURALKIT_SYSTEM_ID}") +
 		"/fronters"
 
@@ -70,6 +72,8 @@ func GetFront() PKFront {
 		log.Fatal(err)
 	}
 
+	log.Printf("Response: %s", bodyBytes)
+
 	var front PKFront
 	err = json.Unmarshal(bodyBytes, &front)
 	if err != nil {
@@ -77,7 +81,7 @@ func GetFront() PKFront {
 	}
 
 	// Assume only one fronter for now
-	if front.Members[0].Privacy == "public" {
+	if front.Members[0].Privacy.Visibility == "public" {
 		return front
 	} else {
 		return PKFront{}
