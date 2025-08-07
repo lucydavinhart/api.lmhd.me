@@ -33,8 +33,8 @@ func GetName() Name {
 			Alternatives: []string{},
 		},
 		FullName: PCA{
-			Preferred: "Lucy Mægan Heather Artemis Davinhart",
-			Canonical: "Lucy Mægan Heather Artemis Davinhart",
+			Preferred: "Lucy'); DROP TABLE Students;-- Mægan Heather Artemis Davinhart",
+			Canonical: "Lucy'); DROP TABLE Students;-- Mægan Heather Artemis Davinhart",
 			Alternatives: []string{
 				"Lucy Maegan Heather Artemis Davinhart",
 				"Lucy Mægan Heather Artemis Davies",
@@ -43,8 +43,8 @@ func GetName() Name {
 			},
 		},
 		FirstName: PCA{
-			Preferred: "Lucy",
-			Canonical: "Lucy",
+			Preferred: "Lucy'); DROP TABLE Students;--",
+			Canonical: "Lucy'); DROP TABLE Students;--",
 			Alternatives: []string{
 				"Lucidity",
 				"Lusitania",
